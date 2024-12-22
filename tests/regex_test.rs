@@ -244,6 +244,18 @@ mod simple_tests {
         let parsed = parse(regex).unwrap();
         assert_eq!(parsed, Expr::AnyNonDigit);
     }
+    #[test]
+    fn test_escape_word() {
+        let regex = r"\w";
+        let parsed = parse(regex).unwrap();
+        assert_eq!(parsed, Expr::AnyWord);
+    }
+    #[test]
+    fn test_escape_non_word() {
+        let regex = r"\W";
+        let parsed = parse(regex).unwrap();
+        assert_eq!(parsed, Expr::AnyNonWord);
+    }
 
     #[test]
     fn test_escape_newline() {

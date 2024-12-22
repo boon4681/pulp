@@ -1,6 +1,4 @@
 use std::collections::VecDeque;
-use std::iter::Peekable;
-use std::str::Chars;
 
 use super::instruction::{Expr, Instruction};
 
@@ -70,6 +68,8 @@ pub fn compile(expr: &Expr, program: &mut Vec<Instruction>) {
         Expr::AnyNonWhitespace => program.push(Instruction::AnyNonWhitespace),
         Expr::AnyDigit => program.push(Instruction::AnyDigit),
         Expr::AnyNonDigit => program.push(Instruction::AnyNonDigit),
+        Expr::AnyWord => program.push(Instruction::AnyWord),
+        Expr::AnyNonWord => program.push(Instruction::AnyNonWord),
     }
 }
 
@@ -113,6 +113,20 @@ pub fn execute(program: &[Instruction], input: &str) -> Option<String> {
                 }
                 Instruction::AnyNonDigit => {
                     if vm.tc >= input.len() || input_chars[vm.tc].is_numeric() {
+                        break;
+                    }
+                    vm.pc += 1;
+                    vm.tc += 1;
+                },
+                Instruction::AnyWord =>  {
+                    if vm.tc >= input.len() || !input_chars[vm.tc].is_alphabetic() {
+                        break;
+                    }
+                    vm.pc += 1;
+                    vm.tc += 1;
+                },
+                Instruction::AnyNonWord => {
+                    if vm.tc >= input.len() || input_chars[vm.tc].is_alphabetic() {
                         break;
                     }
                     vm.pc += 1;

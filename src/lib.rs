@@ -1,11 +1,10 @@
 extern crate cfg_if;
 extern crate wasm_bindgen;
 
+pub mod lexer;
 pub mod regex;
-pub mod vm;
 
 use cfg_if::cfg_if;
-use wasm_bindgen::prelude::*;
 
 cfg_if! {
     if #[cfg(feature = "wee_alloc")] {
@@ -15,4 +14,6 @@ cfg_if! {
     }
 }
 
+pub use lexer::instruction::Statement;
+pub use lexer::Lexer;
 pub use regex::Regex;

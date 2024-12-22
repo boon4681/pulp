@@ -8,6 +8,8 @@ pub enum Instruction {
     Jmp(usize),
     Split(usize, usize),
     Any,
+    AnyWord,
+    AnyNonWord,
     AnyWhitespace,
     AnyNonWhitespace,
     AnyDigit,
@@ -24,6 +26,8 @@ pub enum Expr {
     OneOrMore(Box<Expr>),
     ZeroOrOne(Box<Expr>),
     Any,
+    AnyWord,
+    AnyNonWord,
     AnyWhitespace,
     AnyNonWhitespace,
     AnyDigit,
@@ -43,6 +47,8 @@ impl fmt::Display for Instruction {
             Instruction::AnyNonWhitespace => write!(f, "any non_ws"),
             Instruction::AnyDigit => write!(f, "any digit"),
             Instruction::AnyNonDigit => write!(f, "any non_digit"),
+            Instruction::AnyWord => write!(f, "any word"),
+            Instruction::AnyNonWord => write!(f, "any non_word"),
         }
     }
 }
@@ -62,6 +68,8 @@ impl fmt::Display for Expr {
             Expr::AnyNonWhitespace => write!(f, r"\S"),
             Expr::AnyDigit => write!(f, r"\d"),
             Expr::AnyNonDigit => write!(f, r"\D"),
+            Expr::AnyWord => write!(f, r"\w"),
+            Expr::AnyNonWord => write!(f, r"\W"),
         }
     }
 }

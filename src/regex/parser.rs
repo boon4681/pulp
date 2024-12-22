@@ -116,6 +116,8 @@ impl<'a> Parser<'a> {
                 'n' => Ok(Expr::Char('\n')),
                 'r' => Ok(Expr::Char('\r')),
                 't' => Ok(Expr::Char('\t')),
+                'w' => Ok(Expr::AnyWord),
+                'W' => Ok(Expr::AnyNonWord),
                 's' => Ok(Expr::AnyWhitespace),
                 'S' => Ok(Expr::AnyNonWhitespace),
                 'd' => Ok(Expr::AnyDigit),
